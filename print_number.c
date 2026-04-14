@@ -1,34 +1,35 @@
+
 #include "main.h"
 
-/**
- * print_number - prints an integer
- * @n: number to print
- * Return: number of characters printed
- */
-int print_number(int n)
+int print_num_recursive(int n)
 {
-    int count = 0;
-    char c;
+	int count = 0;
+	unsigned int num;
 
-    if (n == -2147483648)
-    {
-        write(1, "-2147483648", 11);
-        return (11);
-    }
+	if (n < 0)
+	{
+		_putchar('-');
+		count++;
+		num = -n;
+	}
+	else
+	{
+		num = n;
+	}
 
-    if (n < 0)
-    {
-        write(1, "-", 1);
-        count++;
-        n = -n;
-    }
+	if (num / 10)
+		count += print_num_recursive(num / 10);
 
-    if (n / 10)
-        count += print_number(n / 10);
+	_putchar((num % 10) + '0');
+	count++;
 
-    c = (n % 10) + '0';
-    write(1, &c, 1);
-    count++;
+	return (count);
+}
 
-    return (count);
+int print_number(va_list args)
+{
+	int n;
+
+	n = va_arg(args, int);
+	return (print_num_recursive(n));
 }
