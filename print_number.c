@@ -1,10 +1,25 @@
-
 #include "main.h"
 
-int print_num_recursive(int n)
+int print_num_recursive(unsigned int n)
 {
 	int count = 0;
+
+	if (n / 10)
+		count += print_num_recursive(n / 10);
+
+	_putchar((n % 10) + '0');
+	count++;
+
+	return (count);
+}
+
+int print_number(va_list args)
+{
+	int n;
 	unsigned int num;
+	int count = 0;
+
+	n = va_arg(args, int);
 
 	if (n < 0)
 	{
@@ -17,19 +32,7 @@ int print_num_recursive(int n)
 		num = n;
 	}
 
-	if (num / 10)
-		count += print_num_recursive(num / 10);
-
-	_putchar((num % 10) + '0');
-	count++;
+	count += print_num_recursive(num);
 
 	return (count);
-}
-
-int print_number(va_list args)
-{
-	int n;
-
-	n = va_arg(args, int);
-	return (print_num_recursive(n));
 }
